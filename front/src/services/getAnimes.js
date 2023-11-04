@@ -2,16 +2,17 @@ import axios from 'axios';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
-const endpoint = import.meta.env.VITE_API_MOVIES_ENDPOINT;
+const endpoint = import.meta.env.VITE_API_TV_ENDPOINT;
 
-const getMovies = async () => {
+const getAnimes = async () => {
     const response = await axios.get(`${baseUrl}${endpoint}`, {
         params: {
         api_key: apiKey,
+        with_origin_country: 'JP',
         language: 'es-ES'
         }
     })
     return response;
 };
 
-export { getMovies };
+export { getAnimes };
