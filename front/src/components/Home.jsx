@@ -6,6 +6,9 @@ import { getMovieAdapter } from '../adapters/getMovieAdapter';
 import { getSeriesAdapter } from '../adapters/getSeriesAdapter';
 import { getGenresMovies } from '../services/getGenresMovies';
 import { TMDB_PATHS } from '../remote/TMDB_API';
+import { CarouselList } from './CarouselList/CarouselList';
+import { CarouselArticle } from './CarouselArticle/CarouselArticle';
+import { Card } from './Card/Card';
 
 const Home = () => {
     const { list, isLoading, error } = useMultifetch([
@@ -69,22 +72,23 @@ const Home = () => {
                         </li>
                     ))}
                 </ul>
-                <section style={{padding:'16px 32px', display:'flex', flexDirection:'column', gap:'32px'}}>
-                    {list?.map((listElement, index) => (
-                        <article key={index}>
-                            <h2>{listElement?.name}</h2>
-                            <ul style={{listStyle:'none', height:'400px', display:'flex', gap:'32px', overflow:'scroll'}}>
-                                {listElement?.results?.map(item => (
-                                    <li key={item?.id} style={{display:'flex', flexDirection:'column', gap:'8px'}}>
-                                        <img style={{maxWidth:'125px'}} src={`${TMDB_PATHS.images_base_url}${item?.poster}`} alt={item?.title} />
-                                        <h3 style={{margin:'0', fontSize:'20px'}}>{item?.title}</h3>
-                                        {<p>{item?.date}</p>}
-                                    </li>
-                                ))}
-                            </ul>
-                        </article>
-                    ))}
-                </section>
+                <CarouselList 
+                    list={list}
+                    renderList={(carousel, index) => (
+                        <CarouselArticle 
+                            key={`${carousel.name}_${index}`}
+                            carousel={carousel}
+                            renderCard={(card) => (
+                                <Card 
+                                    key={card.id}
+                                    title={card.tile}
+                                    poster_path={card.poster}
+                                    date={card.date}
+                                />
+                            )}
+                        />
+                    )}
+                />
             </>)}
         </>
     )
