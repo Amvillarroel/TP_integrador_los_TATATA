@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useMultifetch } from '../hooks/useMultifetch';
+import { useMultifetch } from '../hooks/useMultiFetch';
 import { getMovies } from '../services/getMovies';
 import { getSeries } from '../services/getSeries';
-import { getAnimes } from '../services/getAnimes';
-import { getHorror } from '../services/getHorror';
 import { getMovieAdapter } from '../adapters/getMovieAdapter';
 import { getSeriesAdapter } from '../adapters/getSeriesAdapter';
 import { getGenresMovies } from '../services/getGenresMovies';
@@ -25,15 +23,25 @@ const Home = () => {
         },
         {
             name: 'Peliculas de Terror',
-            request: getHorror,
+            request: getMovies,
             adapter: getMovieAdapter,
-            endpoint: TMDB_PATHS.movies.discover
+            endpoint: TMDB_PATHS.movies.discover,
+            endpoint_params: {
+                params: {
+                    with_genres: TMDB_PATHS.genres.terror
+                }
+            }
         },
         {
             name: 'Animes',
-            request: getAnimes,
+            request: getSeries,
             adapter: getSeriesAdapter,
-            endpoint: TMDB_PATHS.series.discover
+            endpoint: TMDB_PATHS.series.discover,
+            endpoint_params: {
+                params: {
+                    with_origin_country: TMDB_PATHS.region.japon
+                }
+            }
         }
     ]);
     const [genres, setGenres] = useState();
@@ -68,7 +76,7 @@ const Home = () => {
                             <ul style={{listStyle:'none', height:'400px', display:'flex', gap:'32px', overflow:'scroll'}}>
                                 {listElement?.results?.map(item => (
                                     <li key={item?.id} style={{display:'flex', flexDirection:'column', gap:'8px'}}>
-                                        <img style={{maxWidth:'125px'}} src={`https://image.tmdb.org/t/p/w500${item?.poster}`} alt={item?.title} />
+                                        <img style={{maxWidth:'125px'}} src={`${TMDB_PATHS.images_base_url}${item?.poster}`} alt={item?.title} />
                                         <h3 style={{margin:'0', fontSize:'20px'}}>{item?.title}</h3>
                                         {<p>{item?.date}</p>}
                                     </li>

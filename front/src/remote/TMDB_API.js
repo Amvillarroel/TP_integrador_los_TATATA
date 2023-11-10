@@ -6,7 +6,7 @@ const TMDB_API = axios.create({
         api_key: import.meta.env.VITE_API_KEY,
         language: 'es-ES'
     },
-    timeout: 3000
+    timeout: 4000
 });
 
 const TMDB_PATHS = {
@@ -26,6 +26,36 @@ const TMDB_PATHS = {
         popular: '/tv/popular',
         top_rated: '/tv/top_rated',
         discover: '/discover/tv'
+    },
+    genres: {
+        accion: 28,
+        aventura: 12,
+        animacion: 16,
+        comedia: 35,
+        crimen: 80,
+        documental: 99,
+        drama: 18,
+        familia: 10751,
+        fantasia: 14,
+        historia: 36,
+        terror: 27,
+        musica: 10402,
+        misterio: 9648,
+        romance: 10749,
+        ciencia_ficcion: 878,
+        pelicula_de_tv: 10770,
+        suspenso: 53,
+        belica: 10752,
+        western: 37
+    },
+    region: {
+        argentina: 'AR',
+        colombia: 'CO',
+        espana: 'ES',
+        reino_unido: 'GB',
+        japon: 'JP',
+        usa: 'US',
+        venezuela: 'VE'
     }
 }
 
