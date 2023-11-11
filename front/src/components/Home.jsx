@@ -45,6 +45,17 @@ const Home = () => {
                     with_origin_country: TMDB_PATHS.region.japon
                 }
             }
+        },
+        {
+            name: 'Peliculas Argentinas',
+            request: getMovies,
+            adapter: getMovieAdapter,
+            endpoint: TMDB_PATHS.movies.discover,
+            endpoint_params: {
+                params: {
+                    with_origin_country: TMDB_PATHS.region.argentina
+                }
+            }
         }
     ]);
     const [genres, setGenres] = useState();
@@ -81,7 +92,7 @@ const Home = () => {
                             renderCard={(card) => (
                                 <Card 
                                     key={card.id}
-                                    title={card.tile}
+                                    title={card.title}
                                     poster_path={card.poster}
                                     date={card.date}
                                 />
